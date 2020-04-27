@@ -1,6 +1,6 @@
 ---
 title: "GF-0604 Procesamiento de datos geográficos<br>Laboratorio 02: R - Graficación básica"
-author: "Manuel Vargas"
+author: "Dennis Jimenez"
 date: "2020-04-20"
 output:
   html_document:
@@ -57,18 +57,23 @@ print(ca_covid19)
 2. (10%) Genere un resumen de los datos con la función  ```summary() ```.
 
 ```{r}
-
+summary(ca_covid19)
 ```
 
 3. (10%) Con la función ```barplot()```, genere un gráfico de barras de los casos confirmados.
 
 ```{r}
-
+barplot(height=ca_covid19$confirmados)
 ```
 
 4. (10%) Con la función  ```order()```, ordene el data frame por cantidad de casos confirmados y genere de nuevo el gráfico.
 
 ```{r}
+confirmados.ordenado <- order(ca_covid19$confirmados, decreasing=TRUE)
+ca_covid19.confirmados <- ca_covid19[confirmados.ordenado,]
+
+barplot(
+  height=ca_covid19.confirmados$confirmados,)
 
 ```
 
@@ -78,7 +83,13 @@ print(ca_covid19)
 - Titulo del gráfico.
 
 ```{r}
-
+barplot(
+  height=ca_covid19.confirmados$confirmados, 
+  names.arg=ca_covid19.confirmados$pais, 
+  xlab="País", 
+  ylab="Casos confirmados", 
+  main="Casos confirmados de Covid-19 en países centroamericanos y DOM"
+)
 ```
 
 6. Genere gráficos similares al del paso anterior para:
@@ -86,9 +97,27 @@ print(ca_covid19)
 - (25%) Casos fallecidos.
 
 ```{r}
+activos.ordenado <- order(ca_covid19$activos, decreasing=TRUE)
+ca_covid19.activos <- ca_covid19[activos.ordenado,]
 
+barplot(
+  height=ca_covid19.activos$activos, 
+  names.arg=ca_covid19.activos$pais, 
+  xlab="País", 
+  ylab="Casos activos", 
+  main="Casos activos de Covid-19 en países centroamericanos y DOM"
+)
 ```
 
 ```{r}
+fallecidos.ordenado <- order(ca_covid19$fallecidos, decreasing=TRUE)
+ca_covid19.fallecidos <- ca_covid19[fallecidos.ordenado,]
 
+barplot(
+  height=ca_covid19.fallecidos$fallecidos, 
+  names.arg=ca_covid19.fallecidos$pais, 
+  xlab="País", 
+  ylab="Personas fallecidas", 
+  main="Personas fallecidas por Covid-19 en países centroamericanos y DOM"
+)
 ```
